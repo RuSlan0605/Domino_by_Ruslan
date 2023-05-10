@@ -1,36 +1,7 @@
 from django.db.models import *
 from ckeditor.fields import *
 from django.urls import reverse
-
-
 #main model - product
-class Product(Model):
-     product_name = CharField('Наименование*', max_length=512)
-     description = RichTextField('Описание*')
-
-     main_img = ImageField('Главное фото*', upload_to='product-images/')
-     image1 = ImageField('Фотография 1', upload_to='product-images/', blank=True, null=True)
-     image2 = ImageField('Фотография 2', upload_to='product-images/', blank=True, null=True)
-     image3 = ImageField('Фотография 3', upload_to='product-images/', blank=True, null=True)
-
-     price = FloatField('Ценник(сум)', default=0)
-     stock = BooleanField('Наличие*', default=True)
-
-     made = ForeignKey('Country', verbose_name='Изготовление*', on_delete=CASCADE)
-
-     category = ForeignKey('Category', on_delete=CASCADE, verbose_name='Категория*')
-     size = ManyToManyField('Size', verbose_name='Размер*')
-     color = ManyToManyField('Color', verbose_name='Цвет*')
-
-     brand = ForeignKey('Brand', on_delete=CASCADE, verbose_name='Бренд*')
-
-     
-     def __str__(self):
-          return self.product_name
-
-     class Meta:
-          verbose_name = 'Товар'
-          verbose_name_plural = 'Товары'
 
 
 '''--------------------------------------------------'''
@@ -106,3 +77,31 @@ class Brand(Model):
      class Meta:
           verbose_name = 'Бренд'
           verbose_name_plural = 'Бренды'
+
+class Product(Model):
+     product_name = CharField('Наименование*', max_length=512)
+     description = RichTextField('Описание*')
+
+     main_img = ImageField('Главное фото*', upload_to='product-images/')
+     image1 = ImageField('Фотография 1', upload_to='product-images/', blank=True, null=True)
+     image2 = ImageField('Фотография 2', upload_to='product-images/', blank=True, null=True)
+     image3 = ImageField('Фотография 3', upload_to='product-images/', blank=True, null=True)
+
+     price = FloatField('Ценник(сум)', default=0)
+     stock = BooleanField('Наличие*', default=True)
+
+     made = ForeignKey(Country, verbose_name='Изготовление*', on_delete=CASCADE)
+
+     category = ForeignKey(Category, on_delete=CASCADE, verbose_name='Категория*')
+     size = ForeignKey(Size, on_delete=models.CASCADE, verbose_name='Размер*')
+     color = ForeignKey(Color, on_delete=models.CASCADE, verbose_name='Цвет*')
+
+     brand = ForeignKey(Brand, on_delete=CASCADE, verbose_name='Бренд*')
+
+     
+     def __str__(self):
+          return self.product_name
+
+     class Meta:
+          verbose_name = 'Товар'
+          verbose_name_plural = 'Товары'
