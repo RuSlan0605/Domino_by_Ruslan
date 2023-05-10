@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from rest_framework import generics
 from rest_framework import viewsets
 from rest_framework.pagination import PageNumberPagination
 from shop.models import *
@@ -16,31 +17,37 @@ class ProductViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     pagination_class = ProductListPagination
 
-class CategoryViewSet(viewsets.ModelViewSet):
+class ProductAPIView(generics.ListCreateAPIView):
+
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    pagination_class = ProductListPagination
+
+class CategoryAPIView(generics.ListCreateAPIView):
 
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     pagination_class = ProductListPagination
 
-class ColorViewSet(viewsets.ModelViewSet):
+class ColorAPIView(generics.ListCreateAPIView):
 
     queryset = Color.objects.all()
     serializer_class = ColorSerializer
     pagination_class = ProductListPagination
 
-class SizeViewSet(viewsets.ModelViewSet):
+class SizeAPIView(generics.ListCreateAPIView):
 
     queryset = Size.objects.all()
     serializer_class = SizeSerializer
     pagination_class = ProductListPagination
 
-class CountryViewSet(viewsets.ModelViewSet):
+class CountryAPIView(generics.ListCreateAPIView):
 
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
     pagination_class = ProductListPagination
 
-class BrandViewSet(viewsets.ModelViewSet):
+class BrandAPIView(generics.ListCreateAPIView):
 
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
