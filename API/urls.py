@@ -13,7 +13,7 @@ router = SimpleRouter()
 router.register('', ProductViewSet, basename='products')
 
 urlpatterns = [
-    path('<int:pk>/', ProductAPIView.as_view(), name='product_detail'),
+    path('products/<int:pk>/', ProductAPIView.as_view(), name='product_detail'),
     path('category/', CategoryAPIView.as_view(), name='categories'),
     path('color/', ColorAPIView.as_view(), name='colors'),
     path('size/', SizeAPIView.as_view(), name='sizes'),
